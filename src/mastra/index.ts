@@ -1,7 +1,8 @@
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
-
+import { chatRoute } from '@mastra/ai-sdk';
+import { registerCopilotKit } from "@ag-ui/mastra/copilotkit";
 import { agent } from './agents/personal-assistant';
 
 export const mastra = new Mastra({
@@ -18,8 +19,26 @@ export const mastra = new Mastra({
     name: 'Mastra',
     level: 'info',
   }),
-  observability: {
+  /* observability: {
     // Enables DefaultExporter and CloudExporter for AI tracing
     default: { enabled: false },
+  }, */
+  server: {
+    // Use a non-default port to avoid conflicts with other Mastra servers running locally
+    port: 4750,
+    cors: {
+      origin: "*",
+      allowMethods: ["*"],
+      allowHeaders: ["*"],
+    },
+    apiRoutes: [
+      chatRoute({
+        path: "/chat/:agentId",
+      }),
+      registerCopilotKit({
+        path: "/personal-assistant",
+        resourceId: "personal-assistant",
+      }),
+    ],
   },
 });
