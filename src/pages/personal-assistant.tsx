@@ -1,19 +1,21 @@
-import { CopilotChat } from '@copilotkit/react-ui'
-import { CopilotKit } from '@copilotkit/react-core'
 import { CopilotSidebar } from '@copilotkit/react-ui'
+import { CopilotKit } from '@copilotkit/react-core'
 import '@copilotkit/react-ui/styles.css'
 import { MASTRA_BASE_URL } from '../meta'
+import EmailCard from '../components/email-card'
 
 const suggestions: { title: string; message: string }[] = [
 	{
 		title: 'Tell me about unread emails',
 		message: 'Do I have any unread emails in my inbox?',
 	},
-	{
-		title: 'Tell me about workspace open issues',
-		message: 'What issues do I have open in wallet-8bea383954a2?',
-	},
 ]
+const instructions =
+	'You are assisting the user as best as you can. Answer in the best way possible given the data you have.'
+const labels = {
+	title: 'Personal Assistant',
+	initial: 'Hi! 👋 Ask me about your emails status.',
+}
 
 function PersonalAssistant() {
 	return (
@@ -21,15 +23,14 @@ function PersonalAssistant() {
 			// Defined through registerCopilotKit() in src/mastra/index.ts
 			runtimeUrl={`${MASTRA_BASE_URL}/personal-assistant`}
 			agent='personal'>
-			<CopilotSidebar />
-			<CopilotChat
-				labels={{
-					title: 'Personal Assistant',
-					initial: 'Hi! 👋 Ask me about emails and open source projects.',
-				}}
+			<CopilotSidebar
+				defaultOpen={true}
+				instructions={instructions}
+				labels={labels}
 				suggestions={suggestions}
-				className='h-full w-full mx-auto'
+				className='h-full'
 			/>
+			<EmailCard />
 		</CopilotKit>
 	)
 }
