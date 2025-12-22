@@ -2,19 +2,12 @@ import { CopilotSidebar } from '@copilotkit/react-ui'
 import { CopilotKit } from '@copilotkit/react-core'
 import '@copilotkit/react-ui/styles.css'
 import { MASTRA_BASE_URL } from '../meta'
-import EmailCard from '../components/email-card'
 
-const suggestions: { title: string; message: string }[] = [
-	{
-		title: 'Tell me about unread emails',
-		message: 'Do I have any unread emails in my inbox?',
-	},
-]
 const instructions =
 	'You are assisting the user as best as you can. Answer in the best way possible given the data you have.'
 const labels = {
 	title: 'Personal Assistant',
-	initial: 'Hi! 👋 Ask me about your emails status.',
+	initial: 'Hi! I am your personal assistant. How can I help you today?',
 }
 
 function PersonalAssistant() {
@@ -27,10 +20,9 @@ function PersonalAssistant() {
 				defaultOpen={true}
 				instructions={instructions}
 				labels={labels}
-				suggestions={suggestions}
+				suggestions='auto'
 				className='h-full'
 			/>
-			<EmailCard />
 		</CopilotKit>
 	)
 }
