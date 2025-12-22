@@ -4,7 +4,6 @@ import { LibSQLStore, LibSQLVector } from "@mastra/libsql";
 import { fastembed } from '@mastra/fastembed';
 import { MastraMCPServerDefinition, MCPClient } from '@mastra/mcp';
 import { anthropic } from '@ai-sdk/anthropic';
-import path from 'path';
 
 const mcpServers: Record<string, MastraMCPServerDefinition> = {};
 
@@ -23,25 +22,15 @@ try {
     console.log("MCP tools loaded:", Object.keys(mcpTools));
 } catch (err: any) {
     console.error("Failed loading MCP tools:", err?.message || err);
-}
-
-// Resolve project root robustly even when running from compiled output
-const projectRoot =
-    __dirname.includes(".mastra/output")
-        ? path.resolve(__dirname, "..", "..")
-        : process.cwd();
-
-const memoryDbPath = path.join(projectRoot, "memory.db");
-
-const vectorDbPath = path.join(projectRoot, "vector.db");
+};
 
 // Enhanced memory configuration
 const memory = new Memory({
     storage: new LibSQLStore({
-        url: `file:${memoryDbPath}`,
+        url: process.env.MEMORY_DB_URL,
     }),
     vector: new LibSQLVector({
-        connectionUrl: `file:${vectorDbPath}`,
+        connectionUrl: process.env.VECTOR_DB_URL,
     }),
     embedder: fastembed,
     options: {
