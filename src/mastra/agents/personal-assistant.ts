@@ -91,6 +91,11 @@ export const agent = new Agent({
 - Provide summaries in bullet points
 - Flag urgent emails prominently
 
+## Google Calendar (via Zapier)
+- Schedule, update, and cancel meetings
+- Suggest optimal times based on user's availability
+- Send calendar invites and reminders
+
 ## Linear (via Zapier)
 - Manage GitHub projects and issues
 - Create/update/track issues with clear descriptions

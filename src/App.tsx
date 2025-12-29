@@ -1,6 +1,6 @@
 import { MastraReactProvider } from '@mastra/react'
 import { BrowserRouter, Routes, Route } from 'react-router'
-import PersonalAssistant from './pages/personal-assistant'
+import Dashboard from './pages/dashboard'
 import { MASTRA_BASE_URL } from './meta'
 
 export default function Page() {
@@ -8,8 +8,8 @@ export default function Page() {
 		<MastraReactProvider baseUrl={MASTRA_BASE_URL}>
 			<BrowserRouter>
 				<Routes>
-					<Route path='/personal-assistant'>
-						<Route index element={<PersonalAssistant />} />
+					<Route path='/'>
+						<Route index element={<Dashboard />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

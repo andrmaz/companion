@@ -10,7 +10,7 @@ const labels = {
 	initial: 'Hi! I am your personal assistant. How can I help you today?',
 }
 
-function PersonalAssistant() {
+function Dashboard() {
 	return (
 		<CopilotKit
 			// Defined through registerCopilotKit() in src/mastra/index.ts
@@ -27,4 +27,4 @@ function PersonalAssistant() {
 	)
 }
 
-export default PersonalAssistant
+export default Dashboard
