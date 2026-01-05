@@ -7,7 +7,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 
 const mcpServers: Record<string, MastraMCPServerDefinition> = {};
 
-// Zapier MCP (Gmail,, Linear)
+// Zapier MCP (Gmail, Google Calendar, Linear)
 if (process.env.ZAPIER_MCP_URL) {
     mcpServers.zapier = {
         url: new URL(process.env.ZAPIER_MCP_URL),
@@ -116,6 +116,6 @@ export const agent = new Agent({
     model: anthropic('claude-3-5-haiku-20241022'),
     memory,
     tools: {
-        ...mcpTools
+        ...mcpTools,
     },
 });

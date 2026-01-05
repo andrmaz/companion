@@ -1,0 +1,14 @@
+body, html {
+    height: 100%;
+}
+#root {
+    height: 100%;
+}
+.copilot-kit-chat-container {
+    height: 100%;
+}
+.copilot-kit-chat {
+    height: 100%;
+    width: 420px;
+    border-right: 1px solid rgba(0,0,0,0.12);
+}   

@@ -2,6 +2,7 @@ import { MastraReactProvider } from '@mastra/react'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import Dashboard from './pages/dashboard'
 import { MASTRA_BASE_URL } from './meta'
+import './styles/globals.css'
 
 export default function Page() {
 	return (

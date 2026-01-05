@@ -1,7 +1,7 @@
-import { CopilotSidebar } from '@copilotkit/react-ui'
+import { CopilotChat } from '@copilotkit/react-ui'
 import { CopilotKit } from '@copilotkit/react-core'
-import '@copilotkit/react-ui/styles.css'
 import { MASTRA_BASE_URL } from '../meta'
+import '@copilotkit/react-ui/styles.css'
 
 const instructions =
 	'You are assisting the user as best as you can. Answer in the best way possible given the data you have.'
@@ -16,13 +16,14 @@ function Dashboard() {
 			// Defined through registerCopilotKit() in src/mastra/index.ts
 			runtimeUrl={`${MASTRA_BASE_URL}/personal-assistant`}
 			agent='personal'>
-			<CopilotSidebar
-				defaultOpen={true}
-				instructions={instructions}
-				labels={labels}
-				suggestions='auto'
-				className='h-full'
-			/>
+			<div className='copilot-kit-chat-container'>
+				<CopilotChat
+					instructions={instructions}
+					labels={labels}
+					suggestions='auto'
+					className='copilot-kit-chat'
+				/>
+			</div>
 		</CopilotKit>
 	)
 }
