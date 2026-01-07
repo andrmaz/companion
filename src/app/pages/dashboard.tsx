@@ -14,7 +14,7 @@ function Dashboard() {
 	return (
 		<CopilotKit
 			// Defined through registerCopilotKit() in src/mastra/index.ts
-			runtimeUrl={`${MASTRA_BASE_URL}/personal-assistant`}
+			runtimeUrl={`${MASTRA_BASE_URL}/chat`}
 			agent='personal'>
 			<div className='copilot-kit-chat-container'>
 				<CopilotChat

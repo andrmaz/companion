@@ -36,8 +36,8 @@ export const mastra = new Mastra({
         path: "/chat/:agentId",
       }),
       registerCopilotKit({
-        path: "/personal-assistant",
-        resourceId: "personal-assistant",
+        path: "/chat",
+        resourceId: "personalAssistant",
       }),
     ],
   },
