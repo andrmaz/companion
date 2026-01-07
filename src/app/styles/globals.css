@@ -4,11 +4,17 @@ body, html {
 #root {
     height: 100%;
 }
-.copilot-kit-chat-container {
+.h-100 {
     height: 100%;
 }
-.copilot-kit-chat {
+.chat {
     height: 100%;
     width: 420px;
     border-right: 1px solid rgba(0,0,0,0.12);
 }   
+.copilotKitMessages {
+    background: var(--pico-background-color);
+}
+.copilotKitMessageControlButton {
+    color: var(--pico-color);
+}
