@@ -13,8 +13,8 @@ body, html {
     border-right: 1px solid rgba(0,0,0,0.12);
 }   
 .copilotKitMessages {
-    background: var(--pico-background-color);
+    background: var(--pico-background-color) !important;
 }
 .copilotKitMessageControlButton {
-    color: var(--pico-color);
+    color: var(--pico-color) !important;
 }

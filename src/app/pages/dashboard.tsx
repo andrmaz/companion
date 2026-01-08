@@ -1,6 +1,7 @@
 import { CopilotChat } from '@copilotkit/react-ui'
 import { CopilotKit } from '@copilotkit/react-core'
 import { MASTRA_BASE_URL } from '../meta'
+import { CalendarEvent } from '../components/calendar-event'
 import '../styles/globals.css'
 
 const instructions =
@@ -23,7 +24,9 @@ function Dashboard() {
 					suggestions='auto'
 					className='chat'
 				/>
-				<section className='container-fluid'></section>
+				<section className='container-fluid'>
+					<CalendarEvent />
+				</section>
 			</main>
 		</CopilotKit>
 	)
