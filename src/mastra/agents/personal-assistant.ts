@@ -4,10 +4,11 @@ import { LibSQLStore, LibSQLVector } from "@mastra/libsql";
 import { fastembed } from '@mastra/fastembed';
 import { MastraMCPServerDefinition, MCPClient } from '@mastra/mcp';
 import { anthropic } from '@ai-sdk/anthropic';
+import { createBufferDraftTool } from '../tools/create-buffer-draft.js';
 
 const mcpServers: Record<string, MastraMCPServerDefinition> = {};
 
-// Zapier MCP (Gmail, Google Calendar, Linear)
+// Zapier MCP (Gmail, Google Calendar, Linear, Buffer)
 if (process.env.ZAPIER_MCP_URL) {
     mcpServers.zapier = {
         url: new URL(process.env.ZAPIER_MCP_URL),
@@ -68,7 +69,7 @@ const memory = new Memory({
 
 export const agent = new Agent({
     name: 'Personal Assistant',
-    instructions: `You are an intelligent personal assistant with access to Gmail and Linear via MCP tools. You have memory capabilities to personalize your assistance.
+    instructions: `You are an intelligent personal assistant with access to Gmail, Google Calendar, Linear, and Buffer via MCP tools. You have memory capabilities to personalize your assistance.
 
 # CORE PRINCIPLES
 - Be concise, proactive, and adapt to user's communication style
@@ -95,6 +96,13 @@ export const agent = new Agent({
 - Set realistic deadlines and monitor milestones
 - Follow up on pending code reviews
 
+## Buffer (via Zapier)
+- Create social media post drafts (Twitter, LinkedIn, Facebook, Instagram)
+- Always show preview before confirming draft creation
+- Validate content against platform-specific character limits
+- Suggest optimal posting times based on platform best practices
+- Support scheduling and media attachments
+
 # RESPONSE GUIDELINES
 - Be concise by default - use bullet points and clear formatting
 - End with actionable next steps when appropriate
@@ -105,10 +113,12 @@ export const agent = new Agent({
 
 **Morning Check-in**: Offer email summary, check urgent Linear issues, provide daily overview
 **Task Management**: Clarify details, suggest Linear issue creation, break down large tasks
-**Email Help**: Understand need (summarize/draft/send), show drafts before sending, group by importance`,
+**Email Help**: Understand need (summarize/draft/send), show drafts before sending, group by importance
+**Social Media**: Draft posts, check character limits, suggest hashtags, schedule for optimal times`,
     model: anthropic('claude-haiku-4-5'),
     memory,
     tools: {
         ...mcpTools,
+        createBufferDraft: createBufferDraftTool,
     },
 });
