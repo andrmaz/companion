@@ -4,7 +4,6 @@ import { LibSQLStore, LibSQLVector } from "@mastra/libsql";
 import { fastembed } from '@mastra/fastembed';
 import { MastraMCPServerDefinition, MCPClient } from '@mastra/mcp';
 import { anthropic } from '@ai-sdk/anthropic';
-import { createBufferDraftTool } from '../tools/create-buffer-draft.js';
 
 const mcpServers: Record<string, MastraMCPServerDefinition> = {};
 
@@ -20,7 +19,6 @@ const mcpClient = new MCPClient({ servers: mcpServers });
 let mcpTools = {};
 try {
     mcpTools = await mcpClient.getTools();
-    console.error("MCP tools loaded:", Object.keys(mcpTools));
 } catch (err: any) {
     console.error("Failed loading MCP tools:", err?.message || err);
 };
@@ -110,7 +108,6 @@ export const agent = new Agent({
 - Respect user's time - be efficient and direct
 
 # WORKFLOW EXAMPLES
-
 **Morning Check-in**: Offer email summary, check urgent Linear issues, provide daily overview
 **Task Management**: Clarify details, suggest Linear issue creation, break down large tasks
 **Email Help**: Understand need (summarize/draft/send), show drafts before sending, group by importance
@@ -119,6 +116,5 @@ export const agent = new Agent({
     memory,
     tools: {
         ...mcpTools,
-        createBufferDraft: createBufferDraftTool,
     },
 });
