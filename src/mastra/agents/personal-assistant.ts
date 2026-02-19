@@ -17,7 +17,7 @@ const mcpClient = new MCPClient({ servers: mcpServers });
 
 let mcpTools = {};
 try {
-    mcpTools = await mcpClient.getTools();
+    mcpTools = await mcpClient.listTools();
 } catch (err: any) {
     console.error("Failed loading MCP tools: ", err?.message || err);
 };
@@ -25,10 +25,12 @@ try {
 // Enhanced memory configuration
 const memory = new Memory({
     storage: new LibSQLStore({
+        id: 'agent-storage',
         url: process.env.MEMORY_DB_URL,
     }),
     vector: new LibSQLVector({
-        connectionUrl: process.env.VECTOR_DB_URL,
+        id: 'agent-vector',
+        url: process.env.VECTOR_DB_URL,
     }),
     embedder: fastembed,
     options: {
@@ -65,6 +67,7 @@ const memory = new Memory({
 });
 
 export const agent = new Agent({
+    id: 'personal-assistant',
     name: 'Personal Assistant',
     instructions: `You are an intelligent personal assistant with access to Gmail, Google Calendar, Linear, and Buffer via MCP tools. You have memory capabilities to personalize your assistance.
 
