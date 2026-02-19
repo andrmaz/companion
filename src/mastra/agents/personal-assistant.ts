@@ -3,11 +3,10 @@ import { Memory } from '@mastra/memory';
 import { LibSQLStore, LibSQLVector } from "@mastra/libsql";
 import { fastembed } from '@mastra/fastembed';
 import { MastraMCPServerDefinition, MCPClient } from '@mastra/mcp';
-import { anthropic } from '@ai-sdk/anthropic';
 
 const mcpServers: Record<string, MastraMCPServerDefinition> = {};
 
-// Zapier MCP (Gmail, Google Calendar, Linear, Buffer)
+// Zapier MCP (Gmail, Google Calendar, Linear, Buffer, Github)
 if (process.env.ZAPIER_MCP_URL) {
     mcpServers.zapier = {
         url: new URL(process.env.ZAPIER_MCP_URL),
@@ -20,7 +19,7 @@ let mcpTools = {};
 try {
     mcpTools = await mcpClient.getTools();
 } catch (err: any) {
-    console.error("Failed loading MCP tools:", err?.message || err);
+    console.error("Failed loading MCP tools: ", err?.message || err);
 };
 
 // Enhanced memory configuration
@@ -101,6 +100,10 @@ export const agent = new Agent({
 - Suggest optimal posting times based on platform best practices
 - Support scheduling and media attachments
 
+## Github (via Zapier)
+- Find specific repositories pull requests
+- Update an existing pull request 
+
 # RESPONSE GUIDELINES
 - Be concise by default - use bullet points and clear formatting
 - End with actionable next steps when appropriate
@@ -112,7 +115,7 @@ export const agent = new Agent({
 **Task Management**: Clarify details, suggest Linear issue creation, break down large tasks
 **Email Help**: Understand need (summarize/draft/send), show drafts before sending, group by importance
 **Social Media**: Draft posts, check character limits, suggest hashtags, schedule for optimal times`,
-    model: anthropic('claude-haiku-4-5'),
+    model: 'openrouter/openai/gpt-oss-120b:free',
     memory,
     tools: {
         ...mcpTools,

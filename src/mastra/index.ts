@@ -1,7 +1,6 @@
 import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
-import { chatRoute } from '@mastra/ai-sdk';
 import { agent } from './agents/personal-assistant';
 import { createBufferDraftWorkflow } from './workflows/create-buffer-draft';
 
@@ -33,10 +32,6 @@ export const mastra = new Mastra({
       allowMethods: ["*"],
       allowHeaders: ["*"],
     },
-    apiRoutes: [
-      chatRoute({
-        path: "/chat/:agentId",
-      }),
-    ],
+    apiRoutes: [],
   },
 });
