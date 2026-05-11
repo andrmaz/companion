@@ -27,15 +27,16 @@ const generateSocialMediaPost = createStep({
                     temperature: 0.9,
                     maxOutputTokens: 512,
                 },
-                structuredOutput: {
-                    schema: z.object({
-                        text: z.string().describe('The generated social media post content'),
-                    }),
-                },
                 system: `You are a social media content creator. Craft engaging posts tailored for the specified platform, adhering to character limits and best practices.`,
                 instructions: `Focus on creating concise, engaging content that resonates with the target audience on ${channel}.`
             });
-        return { post: output.object.text };
+        const post = output.text?.trim();
+
+        if (!post) {
+            throw new Error('Failed to generate social media post: agent returned no text output');
+        }
+
+        return { post };
     },
 });
 
@@ -69,7 +70,13 @@ const addToBufferDrafts = createStep({
                     return { toolChoice: 'none', tools: {} };
                 },
             });
-        return { status: output.text };
+        const status = output.text?.trim();
+
+        if (!status) {
+            throw new Error('Failed to confirm Buffer draft creation: agent returned no status text');
+        }
+
+        return { status };
     },
 });
 
